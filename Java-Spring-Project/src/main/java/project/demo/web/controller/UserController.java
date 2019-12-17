@@ -2,6 +2,7 @@ package project.demo.web.controller;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,6 +43,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView registerConfirm(@ModelAttribute UserRegisterBindingModel model){
 
         if (model.getPassword().equals(model.getConfirmPassword())){
@@ -63,12 +65,13 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView login(){
-
         return super.view("users/login");
     }
 
     @PostMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public ModelAndView loginConfirm(@ModelAttribute UserLoginBindingModel model){
 
 
