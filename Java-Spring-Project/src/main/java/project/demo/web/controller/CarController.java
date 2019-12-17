@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import project.demo.domain.entities.enums.Status;
 import project.demo.service.CarService;
 import project.demo.service.CloudinaryService;
 import project.demo.service.models.CarServiceModel;
@@ -35,16 +36,16 @@ public class CarController extends BaseController {
     }
 
     @GetMapping("/create")
-    public ModelAndView createCar(){
+    public ModelAndView createCar() {
 
         return super.view("submit");
     }
 
     @PostMapping("/create")
-    public ModelAndView crateSale(@ModelAttribute SaleCreateBindingModel model){
+    public ModelAndView crateSale(@ModelAttribute SaleCreateBindingModel model) {
 
 
-        CarServiceModel carServiceModel = this.modelMapper.map(model,CarServiceModel.class);
+        CarServiceModel carServiceModel = this.modelMapper.map(model, CarServiceModel.class);
 
         try {
             carServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
@@ -58,25 +59,31 @@ public class CarController extends BaseController {
     }
 
     @GetMapping("/search")
-    public ModelAndView listAllConfirm(){
+    public ModelAndView listAllConfirm() {
 
-        return super.view("vehiculs");
+        return super.view("search");
     }
 
     @PostMapping("/search")
-    public ModelAndView searchCarsConfirm(@ModelAttribute SearchCarBindingModel model){
+    public ModelAndView searchCarsConfirm(@ModelAttribute SearchCarBindingModel model) {
 
-        List<CarServiceModel> allBy = this.carService.getAllByManufacturerAndModel(model.getManufacturer(),model.getModel());
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("search");
 
-        modelAndView.setViewName("vehiculs");
-        modelAndView.addObject(allBy);
+
+        List<CarServiceModel> carServiceModels = this.carService
+                .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
+                        (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+
+        modelAndView.addObject(carServiceModels);
+
+
         return modelAndView;
     }
 
     @GetMapping("/show/{id}")
-    public ModelAndView show(@PathVariable String id){
+    public ModelAndView show(@PathVariable String id) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -88,7 +95,7 @@ public class CarController extends BaseController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable String id){
+    public ModelAndView edit(@PathVariable String id) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -102,7 +109,7 @@ public class CarController extends BaseController {
     }
 
     @PostMapping("/edit/{id}")
-    public ModelAndView modelAndView(@PathVariable String id,@ModelAttribute CarServiceModel model){
+    public ModelAndView modelAndView(@PathVariable String id, @ModelAttribute CarServiceModel model) {
 
 
         this.carService.delete(this.carService.getById(id));
@@ -113,7 +120,7 @@ public class CarController extends BaseController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable String id){
+    public ModelAndView delete(@PathVariable String id) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -128,18 +135,13 @@ public class CarController extends BaseController {
 
     @PostMapping("/delete/{id}")
 
-    public ModelAndView deleteConfirm(@PathVariable String id){
+    public ModelAndView deleteConfirm(@PathVariable String id) {
 
 
         this.carService.delete(this.carService.getById(id));
 
         return super.redirect("/");
     }
-
-
-
-
-
 
 
 }

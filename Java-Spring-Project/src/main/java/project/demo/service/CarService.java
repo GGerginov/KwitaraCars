@@ -5,11 +5,12 @@ import project.demo.domain.entities.enums.Fuel;
 import project.demo.domain.entities.enums.Status;
 import project.demo.service.models.CarServiceModel;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface CarService {
 
-    List<CarServiceModel> findAllByBrandAndModelAndFuelAndStatusAndYear(String brand, String model, String fuel, String status, Integer year);
+    List<CarServiceModel> findAllByManufacturerAndModelAndStatusAndPriceAndMillage(String brand, String model, Status status, BigDecimal price, Integer millage);
 
     void publish(CarServiceModel carServiceModel);
 

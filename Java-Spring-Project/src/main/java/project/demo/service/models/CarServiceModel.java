@@ -25,8 +25,6 @@ public class CarServiceModel {
 
     private Status status;
 
-    private Byte[] image;
-
     private String location;
 
     private Integer millage;
@@ -106,14 +104,6 @@ public class CarServiceModel {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
     }
 
     public String getLocation() {

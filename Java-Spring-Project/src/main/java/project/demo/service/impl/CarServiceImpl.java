@@ -9,6 +9,7 @@ import project.demo.repositories.CarRepository;
 import project.demo.service.CarService;
 import project.demo.service.models.CarServiceModel;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,14 +25,10 @@ public class CarServiceImpl implements CarService {
         this.carRepository = carRepository;
     }
 
-
     @Override
-    public List<CarServiceModel> findAllByBrandAndModelAndFuelAndStatusAndYear(String brand, String model, String fuel, String status, Integer year) {
-        return (carRepository
-                .findAllByManufacturerAndModelAndFuelAndStatusAndYear(brand,model,Fuel.valueOf(fuel),Status.valueOf(status),year)
-                .stream()
-                .map(car -> this.modelMapper.map(car,CarServiceModel.class))
-                .collect(Collectors.toList()));
+    public List<CarServiceModel> findAllByManufacturerAndModelAndStatusAndPriceAndMillage(String brand, String model, Status status, BigDecimal price, Integer millage) {
+        return this.carRepository.findAllByManufacturerAndModelAndStatusAndPriceIsLessThanAndMillageLessThan(brand, model, status, price, millage)
+                .stream().map(car -> this.modelMapper.map(car,CarServiceModel.class)).collect(Collectors.toList());
     }
 
     @Override

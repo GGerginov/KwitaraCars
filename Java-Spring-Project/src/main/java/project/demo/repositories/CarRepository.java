@@ -6,12 +6,13 @@ import project.demo.domain.entities.Car;
 import project.demo.domain.entities.enums.Fuel;
 import project.demo.domain.entities.enums.Status;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car,String> {
 
-    List<Car> findAllByManufacturerAndModelAndFuelAndStatusAndYear(String brand, String model, Fuel fuel, Status status, Integer year);
+    List<Car> findAllByManufacturerAndModelAndStatusAndPriceIsLessThanAndMillageLessThan(String brand, String model, Status status, BigDecimal price, Integer millage);
 
     List<Car> getAllBy();
 
