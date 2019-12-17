@@ -1,6 +1,5 @@
 package project.demo.web.controller;
 
-import com.cloudinary.Cloudinary;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +60,7 @@ public class CarController extends BaseController {
     @GetMapping("/search")
     public ModelAndView listAllConfirm() {
 
-        return super.view("search");
+        return super.view("cars/search");
     }
 
     @PostMapping("/search")
@@ -69,7 +68,7 @@ public class CarController extends BaseController {
 
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("search");
+        modelAndView.setViewName("cars/search");
 
 
         List<CarServiceModel> carServiceModels = this.carService
@@ -89,7 +88,7 @@ public class CarController extends BaseController {
 
         CarServiceModel car = this.carService.getById(id);
         modelAndView.addObject(car);
-        modelAndView.setViewName("cars/car-show");
+        modelAndView.setViewName("cars/carShow");
 
         return modelAndView;
     }

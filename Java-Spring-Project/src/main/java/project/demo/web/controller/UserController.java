@@ -38,7 +38,7 @@ public class UserController extends BaseController {
     @GetMapping("/register")
     public ModelAndView register(){
 
-        return super.view("register");
+        return super.view("users/register");
     }
 
     @PostMapping("/register")
@@ -56,16 +56,16 @@ public class UserController extends BaseController {
 
             this.userService.register(userServiceModel);
 
-            return super.view("login");
+            return super.view("users/login");
         }
 
-        return redirect("/register");
+        return redirect("users/register");
     }
 
     @GetMapping("/login")
     public ModelAndView login(){
 
-        return super.view("login");
+        return super.view("users/login");
     }
 
     @PostMapping("/login")
@@ -74,7 +74,7 @@ public class UserController extends BaseController {
 
         if (this.userService.getByUserNameAndPassword(model.getUsername(),model.getPassword()) == null) {
 
-            super.redirect("register");
+            super.redirect("users/register");
         }
 
         return redirect("/");
