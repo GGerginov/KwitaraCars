@@ -35,7 +35,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .permitAll()
                 .antMatchers("/users/register")
                 .permitAll()
-                .antMatchers("/users/login").hasAnyRole("ROLE_USER")
+                .antMatchers("/users/login")
+                .permitAll()
                 .antMatchers("/cars/show/{id}")
                 .permitAll()
                 .antMatchers("/contacts")
@@ -50,7 +51,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .permitAll()
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .successForwardUrl("/home")
+                .defaultSuccessUrl("/home",true)
                 .and()
                 .logout().logoutSuccessUrl("/")
                 .permitAll();
