@@ -22,4 +22,7 @@ public interface CarService {
 
     void delete(CarServiceModel carServiceModel);
 
+    List<CarServiceModel> findAllByUserId(String id);
+
+
 }

@@ -8,12 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 import project.demo.domain.entities.enums.Status;
 import project.demo.service.CarService;
 import project.demo.service.CloudinaryService;
+import project.demo.service.UserService;
 import project.demo.service.models.CarServiceModel;
+import project.demo.service.models.UserServiceModel;
 import project.demo.web.controller.base.BaseController;
 import project.demo.web.models.SaleCreateBindingModel;
 import project.demo.web.models.SearchCarBindingModel;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -25,27 +28,39 @@ public class CarController extends BaseController {
 
     private CarService carService;
 
+    private UserService userService;
+
     private CloudinaryService cloudinaryService;
 
     @Autowired
-    public CarController(ModelMapper modelMapper, CarService carService, CloudinaryService cloudinaryService) {
+    public CarController(ModelMapper modelMapper, CarService carService, UserService userService, CloudinaryService cloudinaryService) {
         this.modelMapper = modelMapper;
         this.carService = carService;
+        this.userService = userService;
         this.cloudinaryService = cloudinaryService;
     }
 
     @GetMapping("/create")
-    public ModelAndView createCar() {
+    public ModelAndView createCar(Principal principal) {
 
-        return super.view("submit");
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("cars/submit");
+        modelAndView.addObject(userServiceModel);
+
+        return modelAndView;
     }
 
     @PostMapping("/create")
-    public ModelAndView crateSale(@ModelAttribute SaleCreateBindingModel model) {
+    public ModelAndView crateSale(@ModelAttribute SaleCreateBindingModel model,Principal principal) {
 
 
         CarServiceModel carServiceModel = this.modelMapper.map(model, CarServiceModel.class);
 
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
+
+        carServiceModel.setUser(userServiceModel);
         try {
             carServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
         } catch (IOException e) {
@@ -87,6 +102,7 @@ public class CarController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
 
         CarServiceModel car = this.carService.getById(id);
+
         modelAndView.addObject(car);
         modelAndView.setViewName("cars/carShow");
 
@@ -140,6 +156,21 @@ public class CarController extends BaseController {
         this.carService.delete(this.carService.getById(id));
 
         return super.redirect("/");
+    }
+
+    @GetMapping("/my-vehicles")
+    public ModelAndView listAll(Principal principal){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
+
+        List<CarServiceModel> allByUserId = this.carService.findAllByUserId(userServiceModel.getId());
+        modelAndView.addObject(allByUserId);
+        modelAndView.addObject(userServiceModel);
+        modelAndView.setViewName("/cars/my-vehiculs");
+
+        return modelAndView;
     }
 
 

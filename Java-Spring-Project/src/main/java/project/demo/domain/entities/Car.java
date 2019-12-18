@@ -34,6 +34,8 @@ public class Car extends BaseEntity{
 
     private String imageUrl;
 
+    private User user;
+
     public Car() {
     }
 
@@ -135,5 +137,15 @@ public class Car extends BaseEntity{
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

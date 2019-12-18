@@ -31,6 +31,8 @@ public class CarServiceModel {
 
     private String imageUrl;
 
+    private UserServiceModel user;
+
     public CarServiceModel() {
     }
 
@@ -128,5 +130,14 @@ public class CarServiceModel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+
+    public UserServiceModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserServiceModel userServiceModel) {
+        this.user = userServiceModel;
     }
 }

@@ -1,8 +1,11 @@
 package project.demo.service.models;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class UserServiceModel {
+
+    private String id;
 
     private String username;
 
@@ -12,7 +15,18 @@ public class UserServiceModel {
 
     private String profilePictureUrl;
 
+    private Set<RoleServiceModel> authorities;
+
+
     public UserServiceModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -45,5 +59,13 @@ public class UserServiceModel {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public Set<RoleServiceModel> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<RoleServiceModel> authorities) {
+        this.authorities = authorities;
     }
 }

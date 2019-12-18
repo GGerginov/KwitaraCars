@@ -1,11 +1,28 @@
 package project.demo.service;
 
-import project.demo.domain.entities.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import project.demo.domain.entities.Car;
+import project.demo.service.models.CarServiceModel;
 import project.demo.service.models.UserServiceModel;
 
-public interface UserService {
+import java.util.List;
 
-    UserServiceModel getByUserNameAndPassword(String username, String password);
+public interface UserService extends UserDetailsService {
 
-    void register(UserServiceModel model);
+    UserServiceModel registerUser(UserServiceModel userServiceModel);
+
+    UserServiceModel findUserByUserName(String username);
+
+    UserServiceModel findUserById(String id);
+
+    UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword);
+
+    List<UserServiceModel> findAllUsers();
+
+    void deleteUser(String id);
+
+    void makeAdmin(String id);
+
+    void makeUser(String id);
+
 }

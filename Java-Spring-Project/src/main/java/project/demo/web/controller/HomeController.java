@@ -23,7 +23,7 @@ public class HomeController extends BaseController {
 
 
     @GetMapping("/")
-    public ModelAndView home(){
+    public ModelAndView index(){
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -44,5 +44,23 @@ public class HomeController extends BaseController {
     public ModelAndView contacts(){
 
         return super.view("contacts");
+    }
+
+    @GetMapping("/home")
+    public ModelAndView home(){
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<CarServiceModel> carServiceModels = new ArrayList<>();
+
+        carServiceModels.add(this.carService.getAllBy().get(0));
+        carServiceModels.add(this.carService.getAllBy().get(1));
+        carServiceModels.add(this.carService.getAllBy().get(2));
+
+        modelAndView.addObject(carServiceModels);
+
+
+        modelAndView.setViewName("home");
+        return modelAndView;
     }
 }

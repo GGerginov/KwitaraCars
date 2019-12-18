@@ -20,6 +20,8 @@ public class User extends BaseEntity implements UserDetails {
 
     private Set<Role> authorities;
 
+    private List<Car> cars;
+
     public User() {
     }
 
@@ -103,5 +105,14 @@ public class User extends BaseEntity implements UserDetails {
     @Transient
     public boolean isEnabled() {
         return true;
+    }
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    public List<Car> getCars() {
+        return cars;
+    }
+
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 }

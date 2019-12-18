@@ -19,20 +19,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="account-user">
-                            <div class="logo">
-                                <a href="#" title="">
-                                    <i class="fa fa-get-pocket"></i>
-                                    <span>KwitaraCars</span>
-                                    <strong>SELL VEHICULS</strong>
-                                </a>
-                            </div><!-- LOGO -->
                             <form>
                                 <h1>Register Form</h1>
                                 <div class="field">
-                                    <input type="text" placeholder="Username"/>
+                                    <input type="text" placeholder="Username" name="username"/>
                                 </div>
                                 <div class="field">
-                                    <input type="password" placeholder="Password"/>
+                                    <input type="password" placeholder="Password" name="password"/>
                                 </div>
                                 <div class="field">
                                     <input type="submit" value="SEND NOW" class="flat-btn"/>
@@ -49,7 +42,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="registration-sec">
-                            <h1>REGISTER Form</h1>
+                            <h1>LOGIN Form</h1>
                             <form>
                                 <div class="field">
                                     <input type="text" placeholder="Your Name"/>
@@ -63,11 +56,7 @@
                                 <div class="field">
                                     <input type="password" placeholder="Retype Password"/>
                                 </div>
-                                <label>
-                                    <input type="checkbox"/> By Clicking on this You are agree with our <a href="#"
-                                                                                                           title="">Terms
-                                    & Condition</a>
-                                </label>
+
                                 <input type="submit" value="Singup Now" class="flat-btn"/>
                             </form>
                         </div><!-- Registration sec -->
@@ -85,15 +74,15 @@
 
 
     <div class="inner-head overlap">
-        <div style="background: url(/static/img/parallax1.jpg)" class="parallax scrolly-invisible no-parallax"></div>
+        <div style="background: url(/img/parallax1.jpg)" class="parallax scrolly-invisible no-parallax"></div>
         <!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container">
             <div class="inner-content">
                 <span><i class="fa fa-bolt"></i></span>
-                <h2>REGISTER PAGE</h2>
+                <h2>LOGIN PAGE</h2>
                 <ul>
                     <li><a href="#" title="">HOME</a></li>
-                    <li><a href="#" title="">REGISTER PAGE</a></li>
+                    <li><a href="#" title="">LOGIN PAGE</a></li>
                 </ul>
             </div>
         </div>
@@ -107,7 +96,7 @@
                         <div class="row">
                             <div class="col-md-14">
                                 <div class="registration-sec">
-                                    <h1>REGISTER Form</h1>
+                                    <h1>LOGIN Form</h1>
 
                                     <form th:action="@{/users/login}" th:method="post" >
                                         <div class="field">
@@ -119,7 +108,7 @@
                                         </div>
 
 
-                                        <input type="submit" value="Singup Now" class="flat-btn"/>
+                                        <input type="submit" value="Login Now" class="flat-btn"/>
                                     </form>
                                 </div><!-- Registration sec -->
                             </div>

@@ -22,4 +22,6 @@ public interface CarRepository extends JpaRepository<Car,String> {
 
     @Override
     void delete(Car car);
+
+    List<Car> findAllByUserId(String id);
 }

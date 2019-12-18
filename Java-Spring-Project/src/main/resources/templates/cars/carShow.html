@@ -12,7 +12,7 @@
 <div class="theme-layout">
 
     <header class="simple-header for-sticky ">
-        <th:block th:include="~{fragments/header}"/>
+        <th:block th:include="~{fragments/user-navbar}"/>
     </header>
 
 
@@ -151,10 +151,10 @@
                             <div class="agent_bg_widget widget">
                                 <div class="agent_widget">
                                     <div class="agent_pic">
-                                        <a href="agent.html" title="">
-                                            <img src="/img/demo/man1.jpg" alt=""/>
+                                        <a href="/users/profile" title="">
+                                            <img th:src="@{${carServiceModel.getUser().getProfilePictureUrl()}}" alt=""/>
                                             <h3 class="nocontent outline">--- document outline needed 3 ---</h3>
-                                            <h4>Smith forbes</h4>
+                                            <h4 th:text="${carServiceModel.getUser().getUsername()}"></h4>
                                         </a>
                                     </div>
                                     <div class="agent_social">
@@ -167,9 +167,9 @@
                                             <i class="fa fa-phone"> </i> +1 9090909090
                                         </span>
                                     <span>
-                                            <i class="fa fa-envelope"> </i> agent@company.com
-                                        </span>
-                                    <a href="agent.html" title="" class="btn contact-agent">Find more</a>
+                                            <i class="fa fa-envelope" th:text="${carServiceModel.getUser().getEmail()}"> </i>
+                                    </span>
+                                    <a href="/users/profile" title="" class="btn contact-agent">Find more</a>
                                 </div>
                             </div><!-- Follow Widget -->
 

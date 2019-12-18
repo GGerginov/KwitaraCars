@@ -13,20 +13,19 @@
 <div class="theme-layout">
 
     <header class="simple-header for-sticky ">
-        <th:block th:include="~{fragments/header}"/>
+        <th:block th:include="~{fragments/user-navbar}"/>
     </header>
 
 
     <div class="inner-head overlap">
-        <div style="background: url(/static/img/parallax1.jpg) repeat scroll 50% 422.28px transparent;"
+        <div style="background: url(/img/parallax1.jpg) repeat scroll 50% 422.28px transparent;"
              class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
         <div class="container">
             <div class="inner-content">
                 <span><i class="fa fa-bolt"></i></span>
-                <h2>VEHICULS - LIST STYLE 3 </h2>
+                <h2>VEHICULS</h2>
                 <ul>
-                    <li><a href="../../../../../../../dark/index.html" title="">HOME</a></li>
-                    <li><a href="search.html" title="">VEHICUS</a></li>
+                    <li><a href="/home" title="">HOME</a></li>
                 </ul>
             </div>
         </div>
@@ -423,9 +422,9 @@
                                         </div>
                                         <div class="vehicul-agent">
                                             <a href="/" title="">
-                                                <img src="/static/img/1.png" alt=""/>
-                                                <h3>KwitaraCars y</h3>
-                                                <span>Posted by <i>Agent Flwo</i></span>
+                                                <img th:src="@{${car.getUser().getProfilePictureUrl()}}" alt=""/>
+                                                <h3>KwitaraCars</h3>
+                                                <span>Posted by <i th:text="${car.getUser().getUsername()}"></i></span>
                                             </a>
                                         </div>
                                     </div><!-- Blog Post -->
