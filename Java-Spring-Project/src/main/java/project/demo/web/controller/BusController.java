@@ -5,119 +5,125 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import project.demo.domain.entities.enums.Status;
 import project.demo.service.BusService;
+import project.demo.service.CarService;
+import project.demo.service.CloudinaryService;
+import project.demo.service.UserService;
 import project.demo.service.models.BusServiceModel;
 import project.demo.service.models.CarServiceModel;
+import project.demo.service.models.UserServiceModel;
 import project.demo.web.controller.base.BaseController;
 import project.demo.web.models.SaleCreateBindingModel;
 import project.demo.web.models.SearchCarBindingModel;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 @RequestMapping("/buses")
 public class BusController extends BaseController {
 
-    private BusService busService;
-
     private ModelMapper modelMapper;
 
+    private BusService busService;
+
+    private UserService userService;
+
+    private CloudinaryService cloudinaryService;
+
     @Autowired
-    public BusController(BusService busService, ModelMapper modelMapper) {
-        this.busService = busService;
+    public BusController(ModelMapper modelMapper, BusService busService, UserService userService, CloudinaryService cloudinaryService) {
         this.modelMapper = modelMapper;
+        this.busService = busService;
+        this.userService = userService;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @GetMapping("/create")
-    public ModelAndView createBus(){
+    public ModelAndView createCar(Principal principal) {
 
-        return super.view("buses/create-bus");
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("buses/submit");
+        modelAndView.addObject(userServiceModel);
+
+        return modelAndView;
     }
 
     @PostMapping("/create")
-    public ModelAndView createBusConfirm(@ModelAttribute SaleCreateBindingModel model){
+    public ModelAndView crateSale(@ModelAttribute SaleCreateBindingModel model,Principal principal) {
 
-        this.busService.publish(this.modelMapper.map(model, BusServiceModel.class));
 
-        return super.redirect("/");
+        BusServiceModel busServiceModel = this.modelMapper.map(model, BusServiceModel.class);
+
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
+
+        busServiceModel.setUser(userServiceModel);
+        try {
+            busServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.busService.publish(busServiceModel);
+
+        return redirect("/");
     }
 
     @GetMapping("/search")
-    public ModelAndView listAllConfirm(){
+    public ModelAndView listAllConfirm() {
 
-        return super.view("buses/bus-search");
+        return super.view("buses/search");
     }
 
     @PostMapping("/search")
-    public ModelAndView searchCarsConfirm(@ModelAttribute SearchCarBindingModel model){
+    public ModelAndView searchCarsConfirm(@ModelAttribute SearchCarBindingModel model) {
 
-        List<BusServiceModel> allBy = this.busService.getAllByManufacturerAndModel(model.getManufacturer(),model.getModel());
 
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("buses/search");
 
-        modelAndView.setViewName("buses/bus-search");
-        modelAndView.addObject(allBy);
+
+        List<BusServiceModel> busServiceModels = this.busService
+                .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
+                        (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+
+        modelAndView.addObject(busServiceModels);
+
+
         return modelAndView;
     }
 
     @GetMapping("/show/{id}")
-    public ModelAndView show(@PathVariable String id){
+    public ModelAndView show(@PathVariable String id) {
 
         ModelAndView modelAndView = new ModelAndView();
 
         BusServiceModel car = this.busService.getById(id);
+
         modelAndView.addObject(car);
-        modelAndView.setViewName("buses/bus-show");
+        modelAndView.setViewName("buses/busShow");
 
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable String id){
+
+    @GetMapping("/my-buses")
+    public ModelAndView listAll(Principal principal){
 
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("buses/bus-edit");
+        UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
 
-        BusServiceModel carServiceModel = this.busService.getById(id);
-
-        modelAndView.addObject(carServiceModel);
-
-        return modelAndView;
-    }
-
-    @PostMapping("/edit/{id}")
-    public ModelAndView modelAndView(@PathVariable String id,@ModelAttribute BusServiceModel model){
-
-
-        this.busService.delete(this.busService.getById(id));
-
-        this.busService.publish(model);
-
-        return super.redirect("/");
-    }
-
-    @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable String id){
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("buses/bus-delete");
-
-        BusServiceModel carServiceModel = this.busService.getById(id);
-
-        modelAndView.addObject(carServiceModel);
+        List<BusServiceModel> allByUserId = this.busService.findAllByUserId(userServiceModel.getId());
+        modelAndView.addObject(allByUserId);
+        modelAndView.addObject(userServiceModel);
+        modelAndView.setViewName("/buses/my-vehiculs");
 
         return modelAndView;
-    }
-
-    @PostMapping("/delete/{id}")
-    public ModelAndView deleteConfirm(@PathVariable String id){
-
-
-        this.busService.delete(this.busService.getById(id));
-
-        return super.redirect("/");
     }
 
 }

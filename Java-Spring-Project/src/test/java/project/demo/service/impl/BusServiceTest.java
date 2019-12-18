@@ -47,9 +47,8 @@ public class BusServiceTest {
 //        busServiceModel.setId("dadkjasdhjka");
 //        busServiceModel.setYear(2555);
 //        busServiceModel.setMillage(5644465);
-        busRepository = Mockito.mock(BusRepository.class);
-        modelMapper = new ModelMapper();
-        busService = new BusServiceImpl(busRepository,modelMapper);
+
+
     }
 
     @Test

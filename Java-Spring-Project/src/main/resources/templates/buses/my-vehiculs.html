@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="~{fragments/head1}"/>
+</head>
+<body>
+<!-- /.preloader -->
+<div id="preloader"></div>
+
+<iv class="theme-layout">
+
+
+    <header class="simple-header for-sticky ">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </header>
+
+
+    <div class="inner-head overlap">
+        <div style="background: url(/img/parallax1.jpg) repeat scroll 50% 422.28px transparent;"
+             class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
+        <div class="container">
+            <div class="inner-content">
+                <span><i class="ti ti-home"></i></span>
+                <h2>MY vehiculs</h2>
+                <ul>
+                    <li><a href="#" title="">HOME</a></li>
+                    <li><a href="#" title="">MY vehiculs</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="block">
+        <div class="container agnet-prop">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="filter-wrapper">
+                        <ol class="list-option-filter">
+                            <li>
+                                <div class="option-filter-box">
+                                    <div class="label-select">
+                                        <select class="form-control" name="s_statu">
+                                            <option> All Status</option>
+                                            <option>Open house</option>
+                                            <option>Rent</option>
+                                            <option>Boy</option>
+                                            <option>used</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="option-filter-box">
+                                    <div class="label-select">
+                                        <select class="form-control">
+                                            <option value="">
+                                                vehicul/page
+                                            </option>
+                                            <option value="4">
+                                                4 vehiculs-/Page
+                                            </option>
+                                            <option value="8">
+                                                8 vehiculs-/Page
+                                            </option>
+                                            <option value="12">
+                                                12 vehiculs-/Page
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class="sort-rates-lastest">
+                                <div class="option-filter-box">
+                                    <span class="title">SORT BY:</span>
+                                    <a href="" class="sort-icon orderby" data-order="" data-sort="rating_score">
+                                        Rating </a> /
+                                    <a href="" class="sort-icon orderby active" data-order="" data-sort="date">
+                                        Latest </a>
+                                </div>
+                            </li>
+                            <li class="icon-list-view">
+                                <div class="option-filter-box">
+                                    <span class="icon-view grid-style active"><i class="fa fa-th"></i></span>
+                                    <span class="icon-view fullwidth-style"><i class="fa fa-th-list"></i></span>
+                                </div>
+                            </li>
+                        </ol>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-8 column">
+                            <div class="row">
+                                <th:block th:each="bus :${busServiceModelList}">
+
+
+                                    <div class="single-post-sec">
+                                        <div class="blog-post vehicul-post">
+
+                                            <div class="vehiculs-sec">
+                                                <div class="vehiculs-list">
+
+                                                    <div class="vehiculs-content my-vehicul">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6  col-xs-12">
+                                                                <div class="vehiculs-box">
+                                                                    <div class="vehiculs-thumb">
+                                                                        <img th:src="@{${bus.getImageUrl()}}" alt="" th:href="@{/cars/show/{id}(id = ${bus.getId()})}"/>
+                                                                        <span class="spn-status"
+                                                                              th:text="${bus.getStatus().toString()}"></span>
+                                                                        <span class="spn-save"> <i class="ti ti-heart"></i> </span>
+                                                                        <ul class="vehicul-info">
+                                                                            <li>
+                                                                                <i class="fa  fa-retweet"> </i> <span
+                                                                                    th:text="${bus.getTitle()}"></span>
+                                                                            </li>
+                                                                            <li class="li-rl"></li>
+                                                                            <li>
+                                                                                <i class="fa  fa-bed"></i><span
+                                                                                    th:text="${bus.getPrice()}"></span>
+                                                                            </li>
+                                                                            <li class="li-rl"></li>
+                                                                            <li>
+                                                                                <i class="fa  fa-building"> </i> <span
+                                                                                    th:text="${bus.getManufacturer()}"></span>
+                                                                            </li>
+                                                                        </ul>
+                                                                        <div class="user-preview">
+                                                                            <a class="col" href="/users/profile">
+                                                                                <img alt="photo" class="avatar avatar-small"
+                                                                                     th:src="${bus.getUser().getProfilePictureUrl()}"
+                                                                                     title="Avatar">
+                                                                            </a>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <h3 th:text="${bus.getTitle()}">
+                                                                        th:href="@{/cars/show/{id}(id = ${car.getId()})}"</h3>
+                                                                    <span class="price"
+                                                                          th:text="${bus.getPrice()}+ 'лв.'"></span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </th:block>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+</section>
+
+<footer>
+    <th:block th:include="~{fragments/footer1}"/>
+</footer>
+
+</div>
+
+<!-- Script -->
+<script type="text/javascript" src="js/modernizr.js"></script><!-- Modernizer -->
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script><!-- Jquery -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script><!-- Bootstrap -->
+<script type="text/javascript" src="js/owl.carousel.min.js"></script><!-- Owl Carousal -->
+<script type="text/javascript" src="js/html5lightbox.js"></script><!-- HTML -->
+<script type="text/javascript" src="js/scrolly.js"></script><!-- Parallax -->
+<script type="text/javascript" src="js/price-range.js"></script><!-- Parallax -->
+<script type="text/javascript" src="js/script.js"></script><!-- Script -->
+<script src="js/lightslider.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#image-gallery').lightSlider({
+            gallery: true,
+            item: 1,
+            thumbItem: 9,
+            slideMargin: 0,
+            speed: 500,
+            auto: true,
+            loop: true,
+            onSliderLoad: function () {
+                $('#image-gallery').removeClass('cS-hidden');
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        "use strict";
+
+        $(".related-vehiculs-items").owlCarousel({
+            autoplay: true,
+            autoplayTimeout: 3000,
+            smartSpeed: 2000,
+            loop: true,
+            dots: true,
+            nav: false,
+            marging: 30,
+            items: 4,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                600: {
+                    items: 2,
+                    nav: false
+                },
+                1000: {
+                    items: 3,
+                    nav: true,
+                    loop: false
+                }
+            }
+        });
+
+
+    });
+</script>
+
+</body>
+</html>

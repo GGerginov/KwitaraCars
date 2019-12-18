@@ -12,12 +12,12 @@
 
 
         <header class="simple-header for-sticky ">
-           <th:block th:include="~{fragments/header}"/>
+           <th:block th:include="~{fragments/user-navbar}"/>
         </header>        
 
 
         <div class="inner-head overlap">
-            <div style="background: url(img/parallax1.jpg) repeat scroll 50% 422.28px transparent;" class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->	
+            <div style="background: url(/img/parallax1.jpg) repeat scroll 50% 422.28px transparent;" class="parallax scrolly-invisible no-parallax"></div><!-- PARALLAX BACKGROUND IMAGE -->
             <div class="container">
                 <div class="inner-content">
                     <span><i class="ti ti-home"></i></span>
@@ -68,53 +68,6 @@
                             </div>
                         </div>                        
 
-                        <div class="package_widget widget">
-                            <div class="heading2">
-                                <h3>Your Current Package</h3>
-                            </div>
-                            <div class="package-content">
-                                <p><strong>Free Membership</strong></p>
-                                <p>Listing included:&nbsp;3</p>
-                                <p>Listing remain:&nbsp;1</p>
-                                <p>Featured included:&nbsp;1</p>
-                                <p>Featured remain:&nbsp;1</p>
-                                <p>Ends On:&nbsp;Never</p>
-                            </div>
-                        </div>
-
-                        <div class="pass_pro_widget widget">
-                            <div class="heading2">
-                                <h3>Change Your Plan</h3>
-                            </div>
-                            <div class="plan-content">
-                                <form class="subscription_post">
-                                    <div class="form-message">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="dropdown label-select">
-                                            <select class="form-control">
-                                                <option>Plus Plan</option>
-                                                <option>Premium Plan</option>
-                                                <option>Basic Plan</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="recurring_payment" class="checkbox-label">
-                                            <input id="recurring_payment" name="recurring_payment" value="1" type="checkbox"> 
-                                            Make Payment Recurring
-                                        </label>
-                                    </div>                                          
-                                    <div class="">
-                                        <input class="btn btn-success" value="PAY WITH PAYPAL" type="submit">
-                                    </div>                                            
-                                    <div class="package-info">
-                                        or&nbsp;
-                                        <a href="#">View more detail</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </aside>
 
                     <div class="col-md-8 column">
@@ -147,72 +100,9 @@
 
                                             </div>
                                         </div>
-                                        
+
                                     </div>
                                    
-                                </div>
-                                <div class="control-group">
-                                    <div class="group-title">Social Network</div>
-                                    <div class="group-container row">
-                                        <div class="col-md-6">
-                                            <div class="form-group s-profile-facebook">
-                                                <label for="facebook">Facebook Url</label>
-                                                <input id="facebook" class="form-control" value="#" name="facebook" type="text">
-                                            </div>
-                                            <div class="form-group s-profile-twitter">
-                                                <label for="twitter">Twitter Url</label>
-                                                <input id="twitter" class="form-control" value="#" name="twitter" type="text">
-                                            </div>
-                                            <div class="form-group s-profile-google_plus">
-                                                <label for="google_plus">Google Plus Url</label>
-                                                <input id="google_plus" class="form-control" value="#" name="google_plus" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group s-profile-linkedin">
-                                                <label for="linkedin">LinkedIn Url</label>
-                                                <input id="linkedin" class="form-control" value="#" name="linkedin" type="text">
-                                            </div>
-                                            <div class="form-group s-profile-pinterest">
-                                                <label for="pinterest">Pinterest Url</label>
-                                                <input id="pinterest" class="form-control" value="#" name="pinterest" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="submit">
-                                                <input class="btn flat-btn" id="profile_submit" value="Update" type="submit">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <form id="password_form" name="password_form" class="form profile-form">
-                                <div class="control-group">
-                                    <div class="group-title">
-                                        Change Password</div>
-                                    <div class="group-container row">
-                                        <div class="form-message">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group s-profile-old_pass">
-                                                <label for="old_pass">Old Password</label>
-                                                <input id="old_pass" class="form-control" value="" name="old_pass" type="password">
-                                            </div>
-                                            <div class="form-group s-profile-new_pass">
-                                                <label for="new_pass">New Password</label>
-                                                <input id="new_pass" class="form-control" value="" name="new_pass" type="password">
-                                            </div>
-                                            <div class="form-group s-profile-new_pass_confirm">
-                                                <label for="new_pass_confirm">Confirm New Password</label>
-                                                <input id="new_pass_confirm" class="form-control" value="" name="new_pass_confirm" type="password">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="submit">
-                                                <input class="btn flat-btn" id="password_submit" value="Change Password" type="submit">
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </form>
                         </div>

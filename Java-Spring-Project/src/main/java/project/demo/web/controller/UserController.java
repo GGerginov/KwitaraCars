@@ -78,7 +78,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView profile(Principal principal{
+    public ModelAndView profile(Principal principal){
 
         ModelAndView modelAndView = new ModelAndView();
 

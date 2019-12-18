@@ -25,13 +25,23 @@ public class BusServiceModel {
 
     private Status status;
 
-    private Byte[] image;
-
     private String location;
 
     private Integer millage;
 
+    private String imageUrl;
+
+    private UserServiceModel user;
+
     public BusServiceModel() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getManufacturer() {
@@ -98,22 +108,6 @@ public class BusServiceModel {
         this.status = status;
     }
 
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -128,5 +122,22 @@ public class BusServiceModel {
 
     public void setMillage(Integer millage) {
         this.millage = millage;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+
+    public UserServiceModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserServiceModel userServiceModel) {
+        this.user = userServiceModel;
     }
 }
