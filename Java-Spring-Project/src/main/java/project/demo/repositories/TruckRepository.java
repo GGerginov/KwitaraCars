@@ -8,10 +8,15 @@ import project.demo.domain.entities.Truck;
 import project.demo.domain.entities.enums.Fuel;
 import project.demo.domain.entities.enums.Status;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
 public interface TruckRepository extends JpaRepository<Truck,String> {
+
+    List<Truck> findAllByManufacturerAndModelAndStatusAndPriceIsLessThanAndMillageLessThan(String brand, String model, Status status, BigDecimal price, Integer millage);
+
+    List<Truck> getAllBy();
 
     List<Truck> getAllByManufacturerAndModel(String manufacturer,String model);
 
@@ -19,6 +24,8 @@ public interface TruckRepository extends JpaRepository<Truck,String> {
 
     @Override
     void delete(Truck truck);
+
+    List<Truck> findAllByUserId(String id);
 
 
 

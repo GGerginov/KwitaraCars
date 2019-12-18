@@ -26,12 +26,18 @@ public class Truck extends BaseEntity{
 
     private Status status;
 
-    private Byte[] image;
+    private String location;
+
+    private Integer millage;
+
+    private String imageUrl;
+
+    private User user;
 
     public Truck() {
     }
 
-    @Column(name = "brand",nullable = false)
+    @Column(name = "brand")
     public String getManufacturer() {
         return manufacturer;
     }
@@ -40,7 +46,7 @@ public class Truck extends BaseEntity{
         this.manufacturer = brand;
     }
 
-    @Column(name = "model",nullable = false)
+    @Column(name = "model")
     public String getModel() {
         return model;
     }
@@ -49,7 +55,7 @@ public class Truck extends BaseEntity{
         this.model = model;
     }
 
-    @Column(name = "price",nullable = false)
+    @Column(name = "price")
     public BigDecimal getPrice() {
         return price;
     }
@@ -59,7 +65,7 @@ public class Truck extends BaseEntity{
     }
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "fuel",nullable = false)
+    @Column(name = "fuel")
     public Fuel getFuel() {
         return fuel;
     }
@@ -68,7 +74,7 @@ public class Truck extends BaseEntity{
         this.fuel = fuel;
     }
 
-    @Column(name = "year",nullable = false)
+    @Column(name = "year")
     public Integer getYear() {
         return year;
     }
@@ -77,7 +83,7 @@ public class Truck extends BaseEntity{
         this.year = year;
     }
     @Enumerated(EnumType.STRING)
-    @Column(name = "status",nullable = false)
+    @Column(name = "status")
     public Status getStatus() {
         return status;
     }
@@ -104,13 +110,40 @@ public class Truck extends BaseEntity{
         this.description = description;
     }
 
-    @Lob
-    @Column(name = "image")
-    public Byte[] getImage() {
-        return image;
+    @Column(name = "location")
+    public String getLocation() {
+        return location;
     }
 
-    public void setImage(Byte[] image) {
-        this.image = image;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    @Column(name = "millage")
+    public Integer getMillage() {
+        return millage;
+    }
+
+    public void setMillage(Integer millage) {
+        this.millage = millage;
+    }
+
+    @Column(name = "image_URL")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @ManyToOne(targetEntity = User.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

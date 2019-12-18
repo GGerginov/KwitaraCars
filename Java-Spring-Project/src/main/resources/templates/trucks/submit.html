@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head1}"/>
+</head>
+
+<body>
+<!-- /.preloader -->
+<div id="preloader"></div>
+
+<div class="theme-layout">
+
+
+    <header class="simple-header for-sticky ">
+        <th:block th:include="~{fragments/user-navbar}"/>
+    </header>
+
+    <div class="inner-head overlap">
+        <div style="background: url(/img/parallax1.jpg) repeat scroll 50% 422.28px transparent;"
+             class="parallax scrolly-invisible no-parallax"></div>
+        <!- PARALLAX BACKGROUND IMAGE ->
+        <div class="container">
+            <div class="inner-content">
+                <span><i class="ti ti-home"></i></span>
+                <h2>SUBMIT vehicul </h2>
+                <ul>
+                    <li><a href="#" title="">HOME</a></li>
+                    <li><a href="#" title="">SUBMIT VEHICUL</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <section class="block">
+        <div class="container agnet-prop">
+            <div class="row">
+                <aside class="col-md-4 column">
+                    <div class="agent_bg_widget widget">
+                        <div class="agent_widget">
+                            <div class="agent_pic">
+                                <a href="/users/profile" title="">
+                                    <img th:src="@{${userServiceModel.getProfilePictureUrl()}}" alt=""/>
+                                    <h5 th:text="${userServiceModel.getUsername()}"></h5>
+                                </a>
+                            </div>
+                            <div class="agent_social">
+                                <a href="#" title=""><i class="fa fa-facebook"></i></a>
+                                <a href="#" title=""><i class="fa fa-google-plus"></i></a>
+                                <a href="#" title=""><i class="fa fa-twitter"></i></a>
+                                <a href="#" title=""><i class="fa fa-tumblr"></i></a>
+                            </div>
+
+                            <!--                                <span>-->
+                            <!--                                    <i class="fa fa-phone"> </i> +1 9090909090 -->
+                            <!--                                </span>-->
+                            <!--                                <span>-->
+                            <!--                                    <i class="fa fa-envelope"> </i> agent@company.com-->
+                            <!--                                </span>-->
+                            <ul class="agent-menu">
+                                <li>
+                                    <a href="/users/profile"><i class="fa fa-user"> </i> My Profile </a>
+                                </li>
+                                <li>
+                                    <a href="/trucks/my-vehiculs"><i class="fa fa-home"> </i> My vehiculs </a>
+                                </li>
+                                <li>
+                                    <a href="/logout"><i class="fa fa-sign-out"> </i> Log-out </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <div class="package_widget widget">
+                        <div class="heading2">
+                            <h3>Your Current Package</h3>
+                        </div>
+                        <div class="package-content">
+                            <p><strong>Free Membership</strong></p>
+                            <p>Listing included:&nbsp;3</p>
+                            <p>Listing remain:&nbsp;1</p>
+                            <p>Featured included:&nbsp;1</p>
+                            <p>Featured remain:&nbsp;1</p>
+                            <p>Ends On:&nbsp;Never</p>
+                        </div>
+                    </div>
+
+                    <!--                        <div class="pass_pro_widget widget">-->
+                    <!--                            <div class="heading2">-->
+                    <!--                                <h3>Change Your Plan</h3>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="plan-content">-->
+                    <!--                                <form class="subscription_post">-->
+                    <!--                                    <div class="form-message">-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="form-group">-->
+                    <!--                                        <div class="dropdown label-select">-->
+                    <!--                                            <select class="form-control">-->
+                    <!--                                                <option>Basic Plan</option>-->
+                    <!--                                                <option>Slave Plan</option>-->
+                    <!--                                                <option>Gold Plan</option>-->
+                    <!--                                            </select>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="form-group">-->
+                    <!--                                        <label for="recurring_payment" class="checkbox-label">-->
+                    <!--                                            <input id="recurring_payment" name="recurring_payment" value="1" type="checkbox"> -->
+                    <!--                                            Make Payment Recurring-->
+                    <!--                                        </label>-->
+                    <!--                                    </div>                                          -->
+                    <!--                                    <div class="">-->
+                    <!--                                        <input class="btn btn-success" value="PAY WITH PAYPAL" type="submit">-->
+                    <!--                                    </div>                                            -->
+                    <!--                                    <div class="package-info">-->
+                    <!--                                        or&nbsp;-->
+                    <!--                                        <a href="#">View more detail</a>-->
+                    <!--                                    </div>-->
+                    <!--                                </form>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                </aside>
+
+                <div class="col-md-8 column">
+                    <div class="heading4">
+                        <h2>SUBMIT VEHICUL</h2>
+                    </div>
+
+                    <div class="submit-content">
+                        <form id="new_post" name="new_post" th:method="post" class="vehicul-form" role="form"
+                              th:action="@{/trucks/create}" enctype="multipart/form-data">
+                            <div class="control-group">
+                                <div class="group-title">Vehicul Description &amp; Price</div>
+                                <div class="group-container row">
+
+                                    <div class="col-md-8">
+                                        <div class="form-group s-prop-title">
+                                            <label for="title">Title&nbsp;&#42;</label>
+                                            <input type="text" id="title" class="form-control" value="" name="title"
+                                                   required="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group s-prop-area">
+                                            <label for="area">Price </label>
+                                            <input type="text" id="area" class="form-control" value="" name="price">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group s-prop-desc">
+                                            <label for="textarea">Description&nbsp;&#42;</label>
+                                            <textarea id="textarea" name="desc" rows="10" required=""
+                                                      th:name="description" style="width: 100%;"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group s-prop-status">
+                                                <label>Manufacturer</label>
+                                                <div class="dropdown label-select">
+                                                    <div class="label-select">
+                                                        <select name="manufacturer" class="form-control">
+                                                            <option value="">всички
+                                                            </option>
+                                                            <option value="Avia">Avia</option>
+                                                            <option value="Barkas">Barkas</option>
+                                                            <option value="Berna">Berna</option>
+                                                            <option value="Bmc">Bmc</option>
+                                                            <option value="Bocheng">Bocheng</option>
+                                                            <option value="Bremach">Bremach</option>
+                                                            <option value="Bucher">Bucher</option>
+                                                            <option value="Citroen">Citroen</option>
+                                                            <option value="Daewoo">Daewoo</option>
+                                                            <option value="Daf">Daf</option>
+                                                            <option value="Daimler">Daimler</option>
+                                                            <option value="Dennis">Dennis</option>
+                                                            <option value="Dodge">Dodge</option>
+                                                            <option value="Eagle">Eagle</option>
+                                                            <option value="Erf">Erf</option>
+                                                            <option value="Fabela">Fabela</option>
+                                                            <option value="Faun">Faun</option>
+                                                            <option value="Fedra">Fedra</option>
+                                                            <option value="Fiat">Fiat</option>
+                                                            <option value="Foden">Foden</option>
+                                                            <option value="Ford">Ford</option>
+                                                            <option value="GOUPIL">GOUPIL</option>
+                                                            <option value="Gaz">Gaz</option>
+                                                            <option value="Gazela">Gazela</option>
+                                                            <option value="Ginaf">Ginaf</option>
+                                                            <option value="Hanomag">Hanomag</option>
+                                                            <option value="Henshel">Henshel</option>
+                                                            <option value="Hino">Hino</option>
+                                                            <option value="Hyundai">Hyundai</option>
+                                                            <option value="Ielch">Ielch</option>
+                                                            <option value="Ifa">Ifa</option>
+                                                            <option value="Ikarus">Ikarus</option>
+                                                            <option value="Inter">Inter</option>
+                                                            <option value="International">International</option>
+                                                            <option value="Isuzu">Isuzu</option>
+                                                            <option value="Iveco">Iveco</option>
+                                                            <option value="Johnston">Johnston</option>
+                                                            <option value="Jum">Jum</option>
+                                                            <option value="Jumbo">Jumbo</option>
+                                                            <option value="Kamaz">Kamaz</option>
+                                                            <option value="Kia">Kia</option>
+                                                            <option value="Kraz">Kraz</option>
+                                                            <option value="Ladog">Ladog</option>
+                                                            <option value="Latvia">Latvia</option>
+                                                            <option value="Leiland">Leiland</option>
+                                                            <option value="Liaz">Liaz</option>
+                                                            <option value="Lt">Lt</option>
+                                                            <option value="Luaz">Luaz</option>
+                                                            <option value="Mack">Mack</option>
+                                                            <option value="Madara">Madara</option>
+                                                            <option value="Magerus">Magerus</option>
+                                                            <option value="Man">Man</option>
+                                                            <option value="Man-vw">Man-vw</option>
+                                                            <option value="Maz">Maz</option>
+                                                            <option value="Mazda">Mazda</option>
+                                                            <option value="Mega">Mega</option>
+                                                            <option value="Mercedes-Benz">Mercedes-Benz</option>
+                                                            <option value="Mini">Mini</option>
+                                                            <option value="Mitsubishi">Mitsubishi</option>
+                                                            <option value="Mudan">Mudan</option>
+                                                            <option value="Nisa">Nisa</option>
+                                                            <option value="Nissan">Nissan</option>
+                                                            <option value="Nova">Nova</option>
+                                                            <option value="Om">Om</option>
+                                                            <option value="Opel">Opel</option>
+                                                            <option value="Peugeot">Peugeot</option>
+                                                            <option value="Praga">Praga</option>
+                                                            <option value="Preslav">Preslav</option>
+                                                            <option value="Raba">Raba</option>
+                                                            <option value="Renault">Renault</option>
+                                                            <option value="Robur">Robur</option>
+                                                            <option value="Roman">Roman</option>
+                                                            <option value="Rover">Rover</option>
+                                                            <option value="SCHMIDT">SCHMIDT</option>
+                                                            <option value="Scania">Scania</option>
+                                                            <option value="Seat">Seat</option>
+                                                            <option value="Seres">Seres</option>
+                                                            <option value="Setra">Setra</option>
+                                                            <option value="Sinotruk">Sinotruk</option>
+                                                            <option value="Sisu">Sisu</option>
+                                                            <option value="Skoda">Skoda</option>
+                                                            <option value="Steyr">Steyr</option>
+                                                            <option value="Tatra">Tatra</option>
+                                                            <option value="Terberg">Terberg</option>
+                                                            <option value="Toyota">Toyota</option>
+                                                            <option value="Trail">Trail</option>
+                                                            <option value="Uaz">Uaz</option>
+                                                            <option value="Ural">Ural</option>
+                                                            <option value="VW">VW</option>
+                                                            <option value="Vanhool">Vanhool</option>
+                                                            <option value="Victor Meili">Victor Meili</option>
+                                                            <option value="Volvo">Volvo</option>
+                                                            <option value="Yalcin Dorse">Yalcin Dorse</option>
+                                                            <option value="Yamo">Yamo</option>
+                                                            <option value="Zastava">Zastava</option>
+                                                            <option value="Zil">Zil</option>
+                                                            <option value="Други">Други</option>
+                                                        </select></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group s-prop-area">
+                                                <label for="model">Model </label>
+                                                <input type="text" id="model" class="form-control" value=""
+                                                       name="model">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group s-prop-status">
+                                                <label>locations</label>
+                                                <div class="dropdown label-select">
+                                                    <div class="label-select">
+                                                        <select class="form-control" required name="location">
+                                                            <option value="">Any Location
+                                                            </option>
+                                                            <option value="Blagoevgrad">Благоевград
+                                                            </option>
+                                                            <option value="Burgas">Бургас
+                                                            </option>
+                                                            <option value="Varna">Варна
+                                                            </option>
+                                                            <option value="Veliko Tarnovo">Велико Търново
+                                                            </option>
+                                                            <option value="Samokov">Самоков
+                                                            </option>
+                                                            <option value="Sofia">София</option>
+                                                            <option value="Pernik">Перник
+                                                            </option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="form-group s-prop-type">
+                                                <label>Status </label>
+                                                <div class="dropdown label-select">
+                                                    <select class="form-control" name="status">
+                                                        <option>Any Status</option>
+                                                        <option value="DAMAGED">Damaged</option>
+                                                        <option value="NEW">New</option>
+                                                        <option value="USED">Used</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group s-prop-type">
+                                                <label>Fuel </label>
+                                                <div class="dropdown label-select">
+                                                    <select class="form-control" name="fuel">
+                                                        <option>Any</option>
+                                                        <option value="DIESEL">Diesel</option>
+                                                        <option value="ELECTRIC">Electric</option>
+                                                        <option value="LPG">Gas (LPG, Natural Gas)</option>
+                                                        <option value="GASOLINE">Gasoline</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group vehicul_field_years">
+                                                <label for="car_years">Truck Years </label>
+                                                <input type="text" id="car_years" name="year" class="form-control"
+                                                       value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group vehicul_field_Mileage">
+                                                <label for="car_Mileage">Truck Mileage </label>
+                                                <input type="text" id="car_Mileage" name="millage" class="form-control"
+                                                       value="">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="group-title">Vehicul Images</div>
+                                <div class="group-container row">
+                                    <div class="col-md-12">
+                                        <div id="upload-container">
+                                            <div id="aaiu-upload-container">
+                                                <div class="moxie-shim moxie-shim-html5">
+                                                    <label for="add-car-image" class="btn flat-btn btn-lg">Select
+                                                        Images</label>
+                                                    <input type="file" class="form-control-file" id="add-car-image"
+                                                           name="image"
+                                                           required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="submit row" style="clear: both; margin-top: 25px;">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-lg flat-btn" id="vehicul_submit"
+                                           value="Add vehicul">
+                                    <label style="margin-top: 15px; margin-left: 10px;"> Your submission will be
+                                        reviewed by Administrator before it can be published</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <th:block th:include="~{fragments/footer1}"/>
+    </footer>
+
+</div>
+
+<!-- Script -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        "use strict";
+        $(".related-vehiculs-items").owlCarousel({
+            autoplay: true,
+            autoplayTimeout: 3000,
+            smartSpeed: 2000,
+            loop: true,
+            dots: true,
+            nav: false,
+            marging: 30,
+            items: 4,
+            responsiveClass: true,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: false
+                },
+                600: {
+                    items: 2,
+                    nav: false
+                },
+                1000: {
+                    items: 3,
+                    nav: true,
+                    loop: false
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

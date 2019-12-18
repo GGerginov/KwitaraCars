@@ -24,6 +24,8 @@ public class User extends BaseEntity implements UserDetails {
 
     private List<Bus> buses;
 
+    private List<Truck> trucks;
+
     public User() {
     }
 
@@ -125,5 +127,14 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setBuses(List<Bus> buses) {
         this.buses = buses;
+    }
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    public List<Truck> getTrucks() {
+        return trucks;
+    }
+
+    public void setTrucks(List<Truck> trucks) {
+        this.trucks = trucks;
     }
 }
