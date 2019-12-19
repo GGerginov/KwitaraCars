@@ -120,9 +120,9 @@
                                         <span class="spn-status" th:text="${car.getStatus()}"></span>
                                         <span class="spn-save"> <i class="ti ti-heart"></i> </span>
                                         <div class="user-preview">
-                                            <a class="col" href="agent.html">
-                                                <img alt="Camilė" class="avatar avatar-small" src="img/4.png"
-                                                     title="Camilė">
+                                            <a class="col" >
+                                                <img alt="avatar" class="avatar avatar-small" th:src="@{${car.getUser().getProfilePictureUrl()}}"
+                                                     th:title="${car.getUser().getUsername()}"/>
                                             </a>
                                         </div>
                                         <a class="proeprty-sh-more" th:href="@{/cars/show/{id}(id = ${car.getId()})}"><i

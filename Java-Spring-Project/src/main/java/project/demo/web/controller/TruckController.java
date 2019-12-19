@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project.demo.domain.entities.enums.Status;
 import project.demo.service.*;
+import project.demo.service.models.BusServiceModel;
+import project.demo.service.models.CarServiceModel;
 import project.demo.service.models.TruckServiceModel;
 import project.demo.service.models.UserServiceModel;
 import project.demo.validation.TruckValidationService;
@@ -88,12 +90,24 @@ public class TruckController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("trucks/search");
 
+        if (model.getManufacturer().equals("") && model.getModel().equals("") && model.getMillage() == null && model.getPrice() == null && model.getLocation().equalsIgnoreCase("Any Location") && model.getStatus().equalsIgnoreCase("Any status")) {
 
-        List<TruckServiceModel> truckServiceModels = this.truckService
-                .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
-                        (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+            List<TruckServiceModel> trucks = this.truckService.getAllBy();
 
-        modelAndView.addObject(truckServiceModels);
+            modelAndView.addObject(trucks);
+        }
+        else if (model.getMillage() == null && model.getPrice() == null && model.getLocation().equalsIgnoreCase("Any Location") && model.getStatus().equals("Any status")){
+            List<TruckServiceModel> trucks = this.truckService.getAllByManufacturerAndModel(model.getManufacturer(),model.getModel());
+
+            modelAndView.addObject(trucks);
+        }
+        else {
+            List<TruckServiceModel> trucks = this.truckService
+                    .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
+                            (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+
+            modelAndView.addObject(trucks);
+        }
 
 
         return modelAndView;

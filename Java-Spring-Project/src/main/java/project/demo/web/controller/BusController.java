@@ -10,6 +10,7 @@ import project.demo.service.BusService;
 import project.demo.service.CloudinaryService;
 import project.demo.service.UserService;
 import project.demo.service.models.BusServiceModel;
+import project.demo.service.models.CarServiceModel;
 import project.demo.service.models.UserServiceModel;
 import project.demo.validation.BusValidationService;
 import project.demo.web.controller.base.BaseController;
@@ -74,7 +75,7 @@ public class BusController extends BaseController {
 
         this.busService.publish(busServiceModel);
 
-        return redirect("/");
+        return redirect("/home");
     }
 
     @GetMapping("/search")
@@ -90,12 +91,24 @@ public class BusController extends BaseController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("buses/search");
 
+        if (model.getManufacturer().equals("") && model.getModel().equals("") && model.getMillage() == null && model.getPrice() == null && model.getLocation().equalsIgnoreCase("Any Location") && model.getStatus().equalsIgnoreCase("Any status")) {
 
-        List<BusServiceModel> busServiceModels = this.busService
-                .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
-                        (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+            List<BusServiceModel> cars = this.busService.getAllBy();
 
-        modelAndView.addObject(busServiceModels);
+            modelAndView.addObject(cars);
+        }
+        else if (model.getMillage() == null && model.getPrice() == null && model.getLocation().equalsIgnoreCase("Any Location") && model.getStatus().equals("Any status")){
+            List<BusServiceModel> cars = this.busService.getAllByManufacturerAndModel(model.getManufacturer(),model.getModel());
+
+            modelAndView.addObject(cars);
+        }
+        else {
+            List<BusServiceModel> carServiceModels = this.busService
+                    .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
+                            (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+
+            modelAndView.addObject(carServiceModels);
+        }
 
 
         return modelAndView;

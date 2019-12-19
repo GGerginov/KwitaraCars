@@ -87,16 +87,28 @@ public class CarController extends BaseController {
     @PostMapping("/search")
     public ModelAndView searchCarsConfirm(@ModelAttribute SearchCarBindingModel model) {
 
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("cars/search");
 
+        if (model.getManufacturer().equals("") && model.getModel().equals("") && model.getMillage() == null && model.getPrice() == null && model.getLocation().equalsIgnoreCase("Any Location") && model.getStatus().equals("Any status")) {
 
-        List<CarServiceModel> carServiceModels = this.carService
-                .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
-                        (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+            List<CarServiceModel> cars = this.carService.getAllBy();
 
-        modelAndView.addObject(carServiceModels);
+            modelAndView.addObject(cars);
+        }
+        else if (model.getMillage() == null && model.getPrice() == null && model.getLocation().equalsIgnoreCase("Any Location") && model.getStatus().equals("Any status")){
+            List<CarServiceModel> cars = this.carService.getAllByManufacturerAndModel(model.getManufacturer(),model.getModel());
+
+            modelAndView.addObject(cars);
+        }
+        else {
+            List<CarServiceModel> carServiceModels = this.carService
+                    .findAllByManufacturerAndModelAndStatusAndPriceAndMillage
+                            (model.getManufacturer(), model.getModel(), Status.valueOf(model.getStatus()), model.getPrice(), model.getMillage());
+
+            modelAndView.addObject(carServiceModels);
+        }
+
 
 
         return modelAndView;

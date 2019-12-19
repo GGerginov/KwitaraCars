@@ -51,11 +51,11 @@
                                             <input type="text" placeholder="Your Email" name="email"/>
                                         </div>
                                         <div class="field">
-                                            <input type="password" placeholder="Type Password" name="password"/>
+                                            <input type="password" placeholder="Type Password &#42; Must contain(Uppercase letter,lowercase letter and number)" name="password" required minlength="6" pattern=^[a-zA-Z0-9]*$/>
                                         </div>
                                         <div class="field">
-                                            <input type="password" placeholder="Retype Password"
-                                                   name="confirmPassword"/>
+                                            <input type="password" placeholder="Retype Password &#42; Must contain(Uppercase letter,lowercase letter and number)"
+                                                   name="confirmPassword" required minlength="6" pattern=^[a-zA-Z0-9]*$/>
                                         </div>
                                         <div class="control-group">
 

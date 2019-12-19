@@ -32,6 +32,7 @@ public class HomeController extends BaseController {
         carServiceModels.add(this.carService.getAllBy().get(0));
         carServiceModels.add(this.carService.getAllBy().get(1));
         carServiceModels.add(this.carService.getAllBy().get(2));
+        carServiceModels.add(this.carService.getAllBy().get(3));
 
         modelAndView.addObject(carServiceModels);
 
@@ -56,6 +57,7 @@ public class HomeController extends BaseController {
         carServiceModels.add(this.carService.getAllBy().get(0));
         carServiceModels.add(this.carService.getAllBy().get(1));
         carServiceModels.add(this.carService.getAllBy().get(2));
+        carServiceModels.add(this.carService.getAllBy().get(3));
 
         modelAndView.addObject(carServiceModels);
 
