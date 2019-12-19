@@ -43,6 +43,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .permitAll()
                 .antMatchers("/cars/search")
                 .permitAll()
+                .antMatchers("/js/**", "/css/**","/img/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -11,6 +11,7 @@ import project.demo.service.CloudinaryService;
 import project.demo.service.UserService;
 import project.demo.service.models.CarServiceModel;
 import project.demo.service.models.UserServiceModel;
+import project.demo.validation.CarValidationService;
 import project.demo.web.controller.base.BaseController;
 import project.demo.web.models.SaleCreateBindingModel;
 import project.demo.web.models.SearchCarBindingModel;
@@ -30,13 +31,16 @@ public class CarController extends BaseController {
 
     private UserService userService;
 
+    private CarValidationService carValidationService;
+
     private CloudinaryService cloudinaryService;
 
     @Autowired
-    public CarController(ModelMapper modelMapper, CarService carService, UserService userService, CloudinaryService cloudinaryService) {
+    public CarController(ModelMapper modelMapper, CarService carService, UserService userService, CarValidationService carValidationService, CloudinaryService cloudinaryService) {
         this.modelMapper = modelMapper;
         this.carService = carService;
         this.userService = userService;
+        this.carValidationService = carValidationService;
         this.cloudinaryService = cloudinaryService;
     }
 
@@ -60,16 +64,18 @@ public class CarController extends BaseController {
 
         UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
 
-        carServiceModel.setUser(userServiceModel);
-        try {
-            carServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (this.carValidationService.isValid(carServiceModel)) {
+            carServiceModel.setUser(userServiceModel);
+            try {
+                carServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         this.carService.publish(carServiceModel);
 
-        return redirect("/");
+        return redirect("/home");
     }
 
     @GetMapping("/search")
@@ -109,30 +115,7 @@ public class CarController extends BaseController {
         return modelAndView;
     }
 
-    @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable String id) {
 
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("cars/car-edit");
-
-        CarServiceModel carServiceModel = this.carService.getById(id);
-
-        modelAndView.addObject(carServiceModel);
-
-        return modelAndView;
-    }
-
-    @PostMapping("/edit/{id}")
-    public ModelAndView modelAndView(@PathVariable String id, @ModelAttribute CarServiceModel model) {
-
-
-        this.carService.delete(this.carService.getById(id));
-
-        this.carService.publish(model);
-
-        return super.redirect("/");
-    }
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable String id) {
@@ -149,13 +132,12 @@ public class CarController extends BaseController {
     }
 
     @PostMapping("/delete/{id}")
-
     public ModelAndView deleteConfirm(@PathVariable String id) {
 
 
-        this.carService.delete(this.carService.getById(id));
+        this.carService.delete(id);
 
-        return super.redirect("/");
+        return super.redirect("/home");
     }
 
     @GetMapping("/my-vehicles")

@@ -63,8 +63,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void delete(CarServiceModel carServiceModel) {
-        this.carRepository.delete(this.modelMapper.map(carServiceModel,Car.class));
+    public void delete(String id) {
+        this.carRepository.deleteDistinctById(id);
     }
 
     @Override

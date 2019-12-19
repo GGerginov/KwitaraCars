@@ -1,6 +1,8 @@
 package project.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import project.demo.domain.entities.Car;
 import project.demo.domain.entities.enums.Fuel;
@@ -20,8 +22,9 @@ public interface CarRepository extends JpaRepository<Car,String> {
 
     Car getById(String id);
 
-    @Override
-    void delete(Car car);
+   void deleteCarById(String id);
+
+   void deleteDistinctById(String id);
 
     List<Car> findAllByUserId(String id);
 }

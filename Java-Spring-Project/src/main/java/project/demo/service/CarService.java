@@ -20,7 +20,7 @@ public interface CarService {
 
     CarServiceModel getById(String id);
 
-    void delete(CarServiceModel carServiceModel);
+    void delete(String id);
 
     List<CarServiceModel> findAllByUserId(String id);
 

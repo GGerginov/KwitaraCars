@@ -5,7 +5,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +13,7 @@ import project.demo.service.CloudinaryService;
 import project.demo.service.UserService;
 import project.demo.service.models.RoleServiceModel;
 import project.demo.service.models.UserServiceModel;
+import project.demo.validation.UserValidationService;
 import project.demo.web.controller.base.BaseController;
 import project.demo.web.models.users.UserEditBindingModel;
 import project.demo.web.models.users.UserProfileViewModel;
@@ -34,12 +34,15 @@ public class UserController extends BaseController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 
+    private final UserValidationService userValidationService;
+
     private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public UserController(UserService userService, ModelMapper modelMapper,CloudinaryService cloudinaryService) {
+    public UserController(UserService userService, ModelMapper modelMapper, UserValidationService userValidationService, CloudinaryService cloudinaryService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.userValidationService = userValidationService;
         this.cloudinaryService = cloudinaryService;
     }
 
@@ -59,15 +62,18 @@ public class UserController extends BaseController {
 
         UserServiceModel userServiceModel = this.modelMapper.map(model,UserServiceModel.class);
 
-        try {
-            userServiceModel.setProfilePictureUrl(this.cloudinaryService.uploadImage(model.getImage()));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (this.userValidationService.isValid(userServiceModel)) {
+            try {
+                userServiceModel.setProfilePictureUrl(this.cloudinaryService.uploadImage(model.getImage()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.userService.registerUser(userServiceModel);
+            return super.redirect("/login");
+
         }
 
-        this.userService.registerUser(userServiceModel);
-
-        return super.redirect("/login");
+        return super.redirect("/register");
     }
 
     @GetMapping("/login")

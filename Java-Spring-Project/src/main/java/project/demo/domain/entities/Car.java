@@ -1,5 +1,7 @@
 package project.demo.domain.entities;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import project.demo.domain.entities.enums.Fuel;
 import project.demo.domain.entities.enums.Status;
 

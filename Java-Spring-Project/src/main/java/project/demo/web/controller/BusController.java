@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project.demo.domain.entities.enums.Status;
 import project.demo.service.BusService;
-import project.demo.service.CarService;
 import project.demo.service.CloudinaryService;
 import project.demo.service.UserService;
 import project.demo.service.models.BusServiceModel;
-import project.demo.service.models.CarServiceModel;
 import project.demo.service.models.UserServiceModel;
+import project.demo.validation.BusValidationService;
 import project.demo.web.controller.base.BaseController;
 import project.demo.web.models.SaleCreateBindingModel;
 import project.demo.web.models.SearchCarBindingModel;
@@ -31,13 +30,16 @@ public class BusController extends BaseController {
 
     private UserService userService;
 
+    private BusValidationService busValidationService;
+
     private CloudinaryService cloudinaryService;
 
     @Autowired
-    public BusController(ModelMapper modelMapper, BusService busService, UserService userService, CloudinaryService cloudinaryService) {
+    public BusController(ModelMapper modelMapper, BusService busService, UserService userService, BusValidationService busValidationService, CloudinaryService cloudinaryService) {
         this.modelMapper = modelMapper;
         this.busService = busService;
         this.userService = userService;
+        this.busValidationService = busValidationService;
         this.cloudinaryService = cloudinaryService;
     }
 
@@ -61,11 +63,13 @@ public class BusController extends BaseController {
 
         UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
 
-        busServiceModel.setUser(userServiceModel);
-        try {
-            busServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (this.busValidationService.isValid(busServiceModel)) {
+            busServiceModel.setUser(userServiceModel);
+            try {
+                busServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         this.busService.publish(busServiceModel);

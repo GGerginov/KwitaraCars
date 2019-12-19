@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import project.demo.domain.entities.enums.Status;
 import project.demo.service.*;
-import project.demo.service.models.CarServiceModel;
 import project.demo.service.models.TruckServiceModel;
 import project.demo.service.models.UserServiceModel;
+import project.demo.validation.TruckValidationService;
 import project.demo.web.controller.base.BaseController;
 import project.demo.web.models.SaleCreateBindingModel;
 import project.demo.web.models.SearchCarBindingModel;
@@ -28,13 +28,16 @@ public class TruckController extends BaseController {
 
     private UserService userService;
 
+    private TruckValidationService truckValidationService;
+
     private CloudinaryService cloudinaryService;
 
     @Autowired
-    public TruckController(ModelMapper modelMapper, TruckService truckService, UserService userService, CloudinaryService cloudinaryService) {
+    public TruckController(ModelMapper modelMapper, TruckService truckService, UserService userService, TruckValidationService truckValidationService, CloudinaryService cloudinaryService) {
         this.modelMapper = modelMapper;
         this.truckService = truckService;
         this.userService = userService;
+        this.truckValidationService = truckValidationService;
         this.cloudinaryService = cloudinaryService;
     }
 
@@ -45,6 +48,7 @@ public class TruckController extends BaseController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("trucks/submit");
+
         modelAndView.addObject(userServiceModel);
 
         return modelAndView;
@@ -58,13 +62,14 @@ public class TruckController extends BaseController {
 
         UserServiceModel userServiceModel = this.userService.findUserByUserName(principal.getName());
 
-        truckServiceModel.setUser(userServiceModel);
-        try {
-            truckServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (this.truckValidationService.isValid(truckServiceModel)) {
+            truckServiceModel.setUser(userServiceModel);
+            try {
+                truckServiceModel.setImageUrl(this.cloudinaryService.uploadImage(model.getImage()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
         this.truckService.publish(truckServiceModel);
 
         return redirect("/home");
