@@ -8,11 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 import project.demo.domain.entities.enums.Status;
 import project.demo.service.CarService;
 import project.demo.service.CloudinaryService;
+import project.demo.service.MessageService;
 import project.demo.service.UserService;
 import project.demo.service.models.CarServiceModel;
+import project.demo.service.models.MessageServiceModel;
 import project.demo.service.models.UserServiceModel;
 import project.demo.validation.CarValidationService;
 import project.demo.web.controller.base.BaseController;
+import project.demo.web.models.MessageBindingModel;
 import project.demo.web.models.SaleCreateBindingModel;
 import project.demo.web.models.SearchCarBindingModel;
 
@@ -35,13 +38,16 @@ public class CarController extends BaseController {
 
     private CloudinaryService cloudinaryService;
 
+    private MessageService messageService;
+
     @Autowired
-    public CarController(ModelMapper modelMapper, CarService carService, UserService userService, CarValidationService carValidationService, CloudinaryService cloudinaryService) {
+    public CarController(ModelMapper modelMapper, CarService carService, UserService userService, CarValidationService carValidationService, CloudinaryService cloudinaryService, MessageService messageService) {
         this.modelMapper = modelMapper;
         this.carService = carService;
         this.userService = userService;
         this.carValidationService = carValidationService;
         this.cloudinaryService = cloudinaryService;
+        this.messageService = messageService;
     }
 
     @GetMapping("/create")
@@ -122,6 +128,24 @@ public class CarController extends BaseController {
         CarServiceModel car = this.carService.getById(id);
 
         modelAndView.addObject(car);
+        modelAndView.setViewName("cars/carShow");
+
+        return modelAndView;
+    }
+
+    @PostMapping("/show/{id}")
+    public ModelAndView showGetMessage(@PathVariable String id,@ModelAttribute MessageBindingModel model){
+
+        CarServiceModel carServiceModel = this.carService.getById(id);
+
+        UserServiceModel userServiceModel = carServiceModel.getUser();
+
+        model.setUserServiceModel(userServiceModel);
+        this.messageService.addMessage(this.modelMapper.map(model, MessageServiceModel.class));
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject(carServiceModel);
         modelAndView.setViewName("cars/carShow");
 
         return modelAndView;

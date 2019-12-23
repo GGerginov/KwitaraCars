@@ -108,30 +108,30 @@
                                             <div class="heading3">
                                                 <h2>Send Message to Agent</h2>
                                             </div>
-                                            <form>
+                                            <form th:method="post" th:action="@{/cars/show/{id}(id = ${carServiceModel.getId()})}">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <label>
                                                             <i class="fa fa-user"></i>
-                                                            <input type="text" placeholder="Name"/>
+                                                            <input type="text" placeholder="Name" name="messageUser"/>
                                                         </label>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label>
                                                             <i class="fa fa-at"></i>
-                                                            <input type="text" placeholder="Email Id"/>
+                                                            <input type="text" placeholder="Email Id" name="messageEmail"/>
                                                         </label>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label>
                                                             <i class="fa fa-phone"></i>
-                                                            <input type="text" placeholder="Phone Number"/>
+                                                            <input type="text" placeholder="Phone Number" name="messageNumber"/>
                                                         </label>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <label>
                                                             <i class="fa fa-pencil"></i>
-                                                            <textarea placeholder="Your Message"></textarea>
+                                                            <textarea placeholder="Your Message" name="messageContent"></textarea>
                                                         </label>
                                                     </div>
                                                     <div class="col-md-12">
@@ -164,7 +164,7 @@
                                         <a href="#" title=""><i class="fa fa-tumblr"></i></a>
                                     </div>
                                     <span>
-                                            <i class="fa fa-phone"> </i> +1 9090909090
+                                            <i class="fa fa-phone" th:text="${carServiceModel.getUser().getPhoneNumber()}"> </i>
                                         </span>
                                     <span>
                                             <i class="fa fa-envelope" th:text="${carServiceModel.getUser().getEmail()}"> </i>

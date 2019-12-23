@@ -15,6 +15,8 @@ public class UserServiceModel {
 
     private String profilePictureUrl;
 
+    private String phoneNumber;
+
     private Set<RoleServiceModel> authorities;
 
 
@@ -67,5 +69,13 @@ public class UserServiceModel {
 
     public void setAuthorities(Set<RoleServiceModel> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

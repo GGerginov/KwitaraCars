@@ -18,6 +18,10 @@ public class User extends BaseEntity implements UserDetails {
 
     private String profilePictureUrl;
 
+    private String phoneNumber;
+
+    private List<Message> messages;
+
     private Set<Role> authorities;
 
     private List<Car> cars;
@@ -136,5 +140,24 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setTrucks(List<Truck> trucks) {
         this.trucks = trucks;
+    }
+
+    @Column(name = "phoneNumber",nullable = false)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }
