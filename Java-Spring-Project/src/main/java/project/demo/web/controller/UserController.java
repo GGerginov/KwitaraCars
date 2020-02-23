@@ -5,6 +5,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +23,10 @@ import project.demo.web.models.users.UserEditBindingModel;
 import project.demo.web.models.users.UserProfileViewModel;
 import project.demo.web.models.users.UserRegisterBindingModel;
 
+import javax.security.auth.Subject;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -95,6 +97,26 @@ public class UserController extends BaseController {
         modelAndView.setViewName("users/profile");
         return modelAndView;
     }
+
+    @PostMapping("/profile")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView profileEdit(Principal principal,@ModelAttribute UserServiceModel userServiceModel){
+
+        UserServiceModel user = this.userService.findUserByUserName(principal.getName());
+
+        if (userServiceModel.getUsername() != null) {
+            this.userService.updateUserUsername(userServiceModel.getUsername(),user.getId());
+        }
+
+        if (userServiceModel.getEmail() != null){
+            user.setEmail(userServiceModel.getEmail());
+
+        }
+
+        return super.redirect("/logout");
+    }
+
+
 
     @GetMapping("/edit")
     @PreAuthorize("isAuthenticated()")

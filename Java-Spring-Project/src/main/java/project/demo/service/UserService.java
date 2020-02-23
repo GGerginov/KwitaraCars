@@ -1,5 +1,6 @@
 package project.demo.service;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import project.demo.domain.entities.Car;
 import project.demo.service.models.CarServiceModel;
@@ -25,4 +26,7 @@ public interface UserService extends UserDetailsService {
 
     void makeUser(String id);
 
+    void updateUserUsername(String username,String id);
+
+    void save(UserServiceModel userServiceModel);
 }

@@ -3,12 +3,12 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <th:block th:include="~{fragments/head}"/>
+    <th:block th:include="~{fragments/head1}"/>
 </head>
 <body>
 
 <header>
-    <th:block th:include="~{fragments/guest-navbar}"/>
+    <th:block th:include="~{fragments/user-navbar}"/>
 </header>
 
 <main>
@@ -26,7 +26,7 @@
                                             <div class="favorite-and-print">
                                                 <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
                                                     <li data-thumb="img/one-car/1.jpg">
-                                                        <img class="roundedimage" th:src="@{${'/img/cars/' + carServiceModel.getManufacturer().toLowerCase() + '.png'}}"
+                                                        <img class="roundedimage" th:src="${carServiceModel.getImageUrl()}"
                                                              width="350"
                                                              height="350"
                                                              alt="KwitaraCars" />

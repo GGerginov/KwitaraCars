@@ -10,6 +10,8 @@ public class UserRegisterBindingModel {
 
     private String password;
 
+    private String phoneNumber;
+
     private String confirmPassword;
 
     private MultipartFile image;
@@ -55,5 +57,13 @@ public class UserRegisterBindingModel {
 
     public void setImage(MultipartFile image) {
         this.image = image;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

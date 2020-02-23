@@ -127,4 +127,15 @@ public class UserServiceImpl implements UserService {
 
         this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
     }
+
+    @Override
+    public void updateUserUsername(String username, String id) {
+        this.userRepository.updateUserUsername(username,id);
+    }
+
+    @Override
+    public void save(UserServiceModel userServiceModel) {
+        this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel,User.class));
+    }
+
 }
